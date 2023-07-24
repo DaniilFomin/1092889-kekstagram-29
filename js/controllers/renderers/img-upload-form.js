@@ -1,6 +1,6 @@
 import {effectsPreviews, effectValue, imagePreview, scaleValue} from '../elements/img-upload-form';
 
-const setForm = (imgSrc: string, alt: string) => {
+const setForm = (imgSrc, alt) => {
 	imagePreview.src = imgSrc;
 	imagePreview.alt = alt;
 	Array.from(effectsPreviews).map((effectPreview) => {
@@ -14,12 +14,12 @@ const unsetForm = () => {
 	});
 };
 
-const updateImageScale = (imageScale: number) => {
+const updateImageScale = (imageScale) => {
 	scaleValue.value = `${imageScale}%`;
 	imagePreview.style.transform = `scale(${(imageScale / 100).toString()})`;
 };
 
-const updateImageFilter = (type: string, value: string) => {
+const updateImageFilter = (type, value) => {
 	imagePreview.style.filter = `${type}(${value})`;
 	effectValue.value = `${parseFloat(value).toFixed(2)}`;
 };

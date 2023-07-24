@@ -1,4 +1,3 @@
-import {Photo} from '../../../contracts/common';
 import {setBigPicture, unsetBigPicture} from '../../renderers/big-picture';
 import {addEscapeListener, removeModalState, isEscape, removeEscapeListener, addModalState} from '../global';
 import {setComments, unsetComments} from './comments';
@@ -6,13 +5,13 @@ import {bigPicture, closeButton} from '../../elements/big-picture';
 
 
 closeButton.addEventListener('click', closeBigPicture);
-const escapeBigPictureListener = (evt: KeyboardEvent) => {
+const escapeBigPictureListener = (evt) => {
 	if(isEscape(evt)){
 		closeBigPicture();
 	}
 };
 
-const openBigPicture = (photo:Photo) => {
+const openBigPicture = (photo) => {
 	setBigPicture(photo);
 	bigPicture.classList.toggle('hidden');
 	addEscapeListener(escapeBigPictureListener);

@@ -1,4 +1,3 @@
-import {Photo} from '../../contracts/common';
 import {
 	bigPictureImg, commentsContainer,
 	commentsCount, commentsVisibleCount,
@@ -10,7 +9,7 @@ const clearCommentsSection = () => {
 	commentsContainer.innerHTML = '';
 };
 
-const setBigPicture = ({url, likes, description, comments}: Photo)=> {
+const setBigPicture = ({url, likes, description, comments})=> {
 
 	bigPictureImg.src = url;
 	bigPictureImg.alt = description;
@@ -30,7 +29,7 @@ const unsetBigPicture = () => {
 	clearCommentsSection();
 };
 
-const updateVisibleCommentsCount = (amount: number) => {
+const updateVisibleCommentsCount = (amount) => {
 	commentsVisibleCount.childNodes[0].textContent = `${amount} из `;
 };
 

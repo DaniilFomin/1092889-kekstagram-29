@@ -1,15 +1,13 @@
 import {render} from '../../utils/render';
 import {errorAlertTemplate, successAlertTemplate} from '../elements/template';
 
-type Alert = 'success' | 'error' | 'custom';
+const alertContainer = document.body;
 
-const alertContainer = document.body!;
+const createSuccessAlertNode = () => successAlertTemplate.cloneNode(true);
 
-const createSuccessAlertNode = () => successAlertTemplate.cloneNode(true) as HTMLElement;
+const createErrorAlertNode = () => errorAlertTemplate.cloneNode(true);
 
-const createErrorAlertNode = () => errorAlertTemplate.cloneNode(true) as HTMLElement;
-
-const createCustomAlertNode = (message: string) => {
+const createCustomAlertNode = (message) => {
 	const customAlert = document.createElement('div');
 	customAlert.classList.add('custom-alert');
 	customAlert.innerText = message;
@@ -17,7 +15,7 @@ const createCustomAlertNode = (message: string) => {
 };
 
 
-const showAlert = (type: Alert, message = '') => {
+const showAlert = (type, message = '') => {
 	switch (type) {
 		case 'success': {
 			const alert = createSuccessAlertNode();
@@ -43,4 +41,3 @@ const showAlert = (type: Alert, message = '') => {
 };
 
 export {showAlert};
-export type {Alert};

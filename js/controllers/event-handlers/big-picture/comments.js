@@ -1,20 +1,16 @@
-import {Photo, PhotoComment} from '../../../contracts/common';
 import {getCommentsPack} from '../../../core/storage/comments';
 import {renderComments} from '../../renderers/comments';
 import {updateVisibleCommentsCount} from '../../renderers/big-picture';
 import {commentsContainer, loadCommentsButton} from '../../elements/big-picture';
 
+const PACK_LENGTH = 5;
 
-const enum Default {
-	PACK_LENGTH = 5
-}
+let currentComments;
 
-let currentComments: Generator<Array<PhotoComment>>;
-
-const getComments = ({id}: Photo) => {
-	currentComments = getCommentsPack(id,Default.PACK_LENGTH) as Generator<Array<PhotoComment>>;
+const getComments = ({id}) => {
+	currentComments = getCommentsPack(id,PACK_LENGTH);
 };
-const setComments = (photo: Photo) => {
+const setComments = (photo) => {
 	getComments(photo);
 	addComments();
 	loadCommentsButton.addEventListener('click',addComments);
@@ -31,7 +27,7 @@ const getNextComments = () => {
 	if (nextComments.done) {
 		loadCommentsButton.hidden = true;
 	}
-	return nextComments.value!;
+	return nextComments.value;
 };
 
 

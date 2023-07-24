@@ -1,48 +1,45 @@
 import {showAlert} from '../renderers/alert';
-import {Alert} from '../renderers/alert';
 import {addEscapeListener, isEscape, removeEscapeListener} from './global';
 
-const enum Default {
-	ALERT_DURATION = 3000
-}
+const ALERT_DURATION = 3000
 
-let currentAlertNode: HTMLElement;
-let alertCloseButton: HTMLButtonElement;
-let alertInner: HTMLDivElement;
-const escapeAlertListener = (evt: KeyboardEvent) => {
+let currentAlertNode;
+let alertCloseButton;
+let alertInner;
+const escapeAlertListener = (evt) => {
 	if(isEscape(evt)) {
 		removeAlert();
 	}
 };
 
-const overlayClickListener = (evt: Event) => {
+const overlayClickListener = (evt) => {
 	evt.stopPropagation();
-	const targetElement = evt.target as HTMLElement;
+	const targetElement = evt.target;
 	if(targetElement.closest('div') !== alertInner) {
 		removeAlert();
 	}
 };
 const addAlertListeners = () => {
 	currentAlertNode.addEventListener('click', overlayClickListener);
-	alertCloseButton!.addEventListener('click', removeAlert);
+	alertCloseButton.addEventListener('click', removeAlert);
 	addEscapeListener(escapeAlertListener);
 };
 const removeAlertListeners = () => {
 	currentAlertNode.removeEventListener('click', overlayClickListener);
-	alertCloseButton!.removeEventListener('click', removeAlert);
+	alertCloseButton.removeEventListener('click', removeAlert);
 	removeEscapeListener(escapeAlertListener);
 };
 
 
-const addAlert = (type: Alert, message = '') => {
+const addAlert = (type, message = '') => {
 	if(type === 'custom') {
 		const alert = (showAlert(type,message));
-		setTimeout(() => alert.remove(), Default.ALERT_DURATION);
+		setTimeout(() => alert.remove(), ALERT_DURATION);
 		return;
 	}
 	currentAlertNode = (showAlert(type,message));
-	alertCloseButton = currentAlertNode.querySelector<HTMLButtonElement>('button')!;
-	alertInner = currentAlertNode.querySelector<HTMLDivElement>('div')!;
+	alertCloseButton = currentAlertNode.querySelector('button');
+	alertInner = currentAlertNode.querySelector('div');
 	addAlertListeners();
 };
 function removeAlert () {

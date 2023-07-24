@@ -1,7 +1,6 @@
 import {getCommentsByPhotoId} from './photos';
-import {PhotoComment} from '../../contracts/common';
 
-const packsFromArray = (photoComments: Array<PhotoComment>, packLength: number): Array<Array<PhotoComment>> => {
+const packsFromArray = (photoComments, packLength) => {
 	const packs = [];
 	let lastElementIndex = 0;
 	while(lastElementIndex < photoComments.length){
@@ -10,7 +9,7 @@ const packsFromArray = (photoComments: Array<PhotoComment>, packLength: number):
 	}
 	return packs;
 };
-function* generateIterablePacks(arr: Array<PhotoComment>, packLength: number) {
+function* generateIterablePacks(arr, packLength) {
 	const iterableArray = arr.slice();
 	const insufficientElements = arr.length % packLength || packLength;
 	const lastElements = iterableArray.splice(-insufficientElements,insufficientElements);
@@ -19,7 +18,7 @@ function* generateIterablePacks(arr: Array<PhotoComment>, packLength: number) {
 	return lastElements;
 }
 
-const getCommentsPack = (id: number, packLength: number): Generator<Array<PhotoComment>> | Generator<PhotoComment> => {
+const getCommentsPack = (id, packLength) => {
 	const comments = getCommentsByPhotoId(id);
 	return generateIterablePacks(comments, packLength);
 };
@@ -28,4 +27,3 @@ const getCommentsPack = (id: number, packLength: number): Generator<Array<PhotoC
 export {
 	getCommentsPack
 };
-

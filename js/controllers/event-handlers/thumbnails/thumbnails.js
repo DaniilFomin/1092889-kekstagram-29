@@ -1,19 +1,16 @@
 import {getPhotoById} from '../../../core/storage/photos';
 import {openBigPicture} from '../big-picture/big-picture';
 import {debounce} from '../../../utils/debounce';
-import {Photo} from '../../../contracts/common';
 import {renderThumbnails} from '../../renderers/thumbnails';
 import {thumbnailsContainer} from '../../elements/thumbnails';
 
-const enum Default {
-	DEBOUNCE_TIME = 500
-}
+const DEBOUNCE_TIME = 500;
 
-const thumbnailsClickListener = (evt: Event) => {
-	const target = evt.target! as HTMLElement;
+const thumbnailsClickListener = (evt) => {
+	const target = evt.target;
 	if (target.closest('.picture')){
 		evt.preventDefault();
-		const thumbnail = target.closest('.picture') as HTMLAnchorElement;
+		const thumbnail = target.closest('.picture');
 		const photoId = new URL(thumbnail.href).pathname.split('/').pop();
 		const photo = getPhotoById(Number(photoId));
 		openBigPicture(photo);
@@ -28,8 +25,8 @@ const removeThumbnailsListeners = () => {
 	thumbnailsContainer.removeEventListener('click',thumbnailsClickListener);
 };
 
-const rerenderThumbnails = (photos: Array<Photo>) => {
-	const pictures = Array.from(thumbnailsContainer.querySelectorAll<HTMLAnchorElement>('.picture'))!;
+const rerenderThumbnails = (photos) => {
+	const pictures = Array.from(thumbnailsContainer.querySelectorAll('.picture'));
 	if (pictures.length > 0) {
 		pictures.forEach((el) => el.remove());
 		removeThumbnailsListeners();
@@ -38,7 +35,7 @@ const rerenderThumbnails = (photos: Array<Photo>) => {
 	addThumbnailsListeners();
 };
 
-const debouncedRerenderThumbnails = debounce<Photo>(rerenderThumbnails, Default.DEBOUNCE_TIME);
+const debouncedRerenderThumbnails = debounce(rerenderThumbnails, DEBOUNCE_TIME);
 
 
 export {debouncedRerenderThumbnails, addThumbnailsListeners};

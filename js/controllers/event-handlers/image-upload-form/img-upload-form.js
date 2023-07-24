@@ -19,14 +19,14 @@ import {sendData} from '../../../core/api/api';
 
 const IMAGE_EXTENSIONS = ['png', 'jpeg', 'jpg'];
 
-const escapeImageUploadForm = (evt: KeyboardEvent) => {
-	const element = evt.target as HTMLElement;
-	const isError = () => document.body.lastElementChild!.classList.contains('error');
+const escapeImageUploadForm = (evt) => {
+	const element = evt.target;
+	const isError = () => document.body.lastElementChild.classList.contains('error');
 	if(isEscape(evt) && !element.closest('.img-upload__field-wrapper') && !isError()){
 		form.reset();
 	}
 };
-const toggleSubmitButtonState = (flag: boolean) => {
+const toggleSubmitButtonState = (flag) => {
 	if (flag) {
 		submitButton.textContent = 'Опубликовать';
 		submitButton.disabled = false;
@@ -40,14 +40,14 @@ const formSubmitSuccessHandler = () => {
 	addAlert('success');
 };
 
-const formSubmitFailHandler = (err: Error) => {
+const formSubmitFailHandler = (err) => {
 	addAlert('custom', err.message);
 	addAlert('error');
 	toggleSubmitButtonState(true);
 };
 
 
-const submitListener = async (evt: Event) => {
+const submitListener = async (evt) => {
 	evt.preventDefault();
 	if (checkValidity()) {
 		const formData = new FormData(form);
@@ -68,12 +68,12 @@ addEffectListener();
 addScaleListeners();
 
 const openImageUploadForm = () => {
-	if (!IMAGE_EXTENSIONS.some((el) => imageUploadInput.files![0].type.endsWith(el))) {
+	if (!IMAGE_EXTENSIONS.some((el) => imageUploadInput.files[0].type.endsWith(el))) {
 		addAlert('custom', 'Выбранное изображение может быть форматов \'jpg\', \'jpeg\', \'png\'');
 		form.reset();
 		return;
 	}
-	const file = imageUploadInput.files![0];
+	const file = imageUploadInput.files[0];
 	const imageUrl = URL.createObjectURL(file);
 	setForm(imageUrl, file.name);
 	imageUploadOverlay.classList.toggle('hidden');
