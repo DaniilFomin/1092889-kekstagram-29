@@ -1,7 +1,7 @@
 import {showAlert} from '../renderers/alert';
 import {addEscapeListener, isEscape, removeEscapeListener} from './global';
 
-const ALERT_DURATION = 3000
+const ALERT_DURATION = 3000;
 
 let currentAlertNode;
 let alertCloseButton;

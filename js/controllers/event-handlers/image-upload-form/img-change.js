@@ -58,7 +58,7 @@ const changeEffectListener = (evt) => {
 	const effectValue = effect.value;
 	sliderContainer.hidden = false;
 
-	const {effectType, scaleData, units} = effectsMap.get(effectValue);
+	const {scaleData} = effectsMap.get(effectValue);
 	currentSlider = createSlider(scaleData);
 	currentSlider.on('update', updateEffectListener);
 };
