@@ -60,7 +60,6 @@ const changeEffectListener = (evt) => {
 
 	const {effectType, scaleData, units} = effectsMap.get(effectValue);
 	currentSlider = createSlider(scaleData);
-	updateImageFilter(effectType, `${scaleData.max}${units}`);
 	currentSlider.on('update', updateEffectListener);
 };
 
